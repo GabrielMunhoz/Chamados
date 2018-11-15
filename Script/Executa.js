@@ -10,37 +10,47 @@ function loadDoc() {
     xhttp.send();
   });
 
+ 
+
 function monta(emp){
     console.log(emp);
-    
+    var cont = 0;
     var table = $("#table1");
     for(var ind in emp){
-      var tr = $("<tr></tr>");
+      var tr = $("<tr></tr>").attr("id",cont++);
 
-      var td1 = $("<td></td>");
-      td1.attr=("id",1);
+      var td1 = $("<td></td>").attr("id",1);
       td1.append(emp[ind].id);
 
-      var td2 = $("<td></td>");
-      td2.attr=("id",2);
+      var td2 = $("<td></td>").attr("id",1);
       td2.append(emp[ind].nome_emp);
 
-      var td3 = $("<td></td>");
-      td3.attr=("id",3);
-      td3.append(emp[ind].ende);
+      var td3 = $("<td></td>").attr("id",1);
+      td3.append(emp[ind].ende).attr("id",1);
 
-      var td4 = $("<td></td>");
-      td4.attr=("id",4);
+      var td4 = $("<td></td>").attr("id",1);
       td4.append(emp[ind].cnpj);
+
+      var td5 = $("<td></td>").attr("id",1).attr("scope","col");
+      var button = $("<button></button>").attr("class","btn btn-danger").attr("id","deletar").attr("onclick","deletar("+emp[ind].id+")");
+      button.append("Deletar");
+      td5.append(button);
 
       tr.append(td1);
       tr.append(td2);
       tr.append(td3);
       tr.append(td4);
+      tr.append(td5);
       table.append(tr);
     }
   }
-  
+  function limparFormulario(){
+    document.querySelector("#nome_emp").value="";
+    document.querySelector("#ende").value="";
+    document.querySelector("#cnpj").value="";
+
+}
+
   var form = document.getElementById("for");
   form.onsubmit = function(event){
     event.preventDefault();
@@ -50,7 +60,6 @@ function monta(emp){
     emp.ende = $("#ende").val();
     
     emp.cnpj =  $("#cnpj").val();
-    
     insere(emp);
   }
 
@@ -60,14 +69,28 @@ function monta(emp){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 201) {
+        alert("Empresa Cadastrada com sucesso!");
+        limparFormulario();
         monta(JSON.parse(this.responseText));
       }
     };
-
-    console.log(emp);
-    var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "http://localhost:8080/Emp", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.setRequestHeader("Content-type","application/json");
     xhttp.send(JSON.stringify(emp));
+
+  }
+  function deletar(id){
+    alert("Deletado: " + id);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        limparFormulario();
+        monta(JSON.parse(this.responseText));
+      }
+    };
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("DELETE", "http://localhost:8080/Emp/"+id, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify(id));
 
   }
