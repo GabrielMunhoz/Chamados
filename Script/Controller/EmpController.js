@@ -28,19 +28,19 @@ class EmpController{
         xhttp.send(JSON.stringify(emp));
     
       }
-      function loadDoc() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-     monta(JSON.parse(this.responseText));
-    }
-  };
-  xhttp.open("GET", "http://localhost:8080/Emp", true);
-  xhttp.send();
+       loadDoc() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            self.monta(JSON.parse(this.responseText));
+            }
+        };
+        xhttp.open("GET", "http://localhost:8080/Emp", true);
+        xhttp.send();
 }
  
 
-function monta(emp){
+    monta(emp){
     console.log(emp);
     //limpa a table para reinserir os valores
     var table1 =$("#table");
@@ -106,12 +106,13 @@ function monta(emp){
 
 
   function deletar(id){ 
+      var self = this;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 201) {
-        alert("Deletado: " + id);
-        limparFormulario();
-        loadDoc();
+        self.alert("Deletado: " + id);
+        self.limparFormulario();
+        self.loadDoc();
       }
     };
     var xhttp = new XMLHttpRequest();
