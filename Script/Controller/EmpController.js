@@ -1,7 +1,34 @@
-$(document).ready( 
-  loadDoc()   
-);
-function loadDoc() {
+class EmpController{
+    constructor(){
+        
+    }
+     salvarEmp(event){
+        event.preventDefault();
+
+        var emp = new Emp();
+        emp.nome_emp = $("#nome_emp").val();
+        
+        emp.ende = $("#ende").val();
+        
+        emp.cnpj =  $("#cnpj").val();
+        this.insere(emp);
+    }
+    insere(emp){
+        
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 201) {
+            alert("Empresa Cadastrada com sucesso!");
+            limparFormulario();
+            loadDoc();
+          }
+        };
+        xhttp.open("POST", "http://localhost:8080/Emp", true);
+        xhttp.setRequestHeader("Content-type","application/json");
+        xhttp.send(JSON.stringify(emp));
+    
+      }
+      function loadDoc() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -93,3 +120,5 @@ function monta(emp){
     xhttp.send(JSON.stringify(id));
 
   }
+   
+}
