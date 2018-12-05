@@ -10,11 +10,11 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">CHAMADOS</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="rowlapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
       
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="rowlapse navbar-rowlapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
               <a class="nav-link" href="./Empresa.html">EMPRESAS <span class="sr-only">(current)</span></a>
@@ -47,14 +47,14 @@
 
 </body>
 <footer>
-  <form id="for">
+  <form class = "table" id="for">
       <table id="table2" class="table">
           <tr>
             <td>#</td>
-            <td scope="col"><input type="text" id="nome_emp"></td>
-            <td scope="col"><input type="text" id="ende"></td>
-            <td scope="col"><input type="number" id="cnpj"></td>
-            <td scope="col"><button class="btn btn-primary">Enviar</td>
+            <td scope="row"><input type="text" id="nome_emp"></td>
+            <td scope="row"><input type="text" id="ende"></td>
+            <td scope="row"><input type="number" id="cnpj"></td>
+            <td scope="row"><button class="btn btn-primary" type="submit">Enviar</td>
           </tr>
         </table>    
   </form> 

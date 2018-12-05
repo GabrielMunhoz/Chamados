@@ -54,7 +54,7 @@
         */
         public function listar()
         {
-		    $query = 'SELECT * FROM Emp';
+		    $query = 'SELECT * FROM Emp order by id';
     		$pdo = PDOFactory::getConexao();
 	    	$comando = $pdo->prepare($query);
     		$comando->execute();

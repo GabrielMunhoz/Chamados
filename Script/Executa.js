@@ -1,10 +1,16 @@
 let empController = new EmpController;
 
-$("body").ready(empController.loadDoc());
+window.addEventListener("load", empController.montaView.bind(empController));
 
 document.querySelector("#for").addEventListener("submit", empController.salvarEmp.bind(empController));
 
 
+
+
+
+// function del(id){
+//     empController.del(id);
+// }
 
 
 

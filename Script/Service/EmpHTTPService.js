@@ -9,10 +9,10 @@ class EmpHTTPService{
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 201) {
-                return ok;                
+                 ok();                
           }
           else if(this.status != 201){
-              return error (this.satatus);
+               error (this.status);
           }
         };
         xhttp.open("POST", this.uri, true);
@@ -21,29 +21,31 @@ class EmpHTTPService{
     
       }
 
-      deletar(id){ 
+      deletar(id, ok, error){ 
         var self = this;
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 201) {
-            self.alert("Deletado: " + id);
-            self.limparFormulario();
-            self.loadDoc();
-          }
+            ok();
+          }else if(this.status !== 201){
+            error(this.status);
         };
         var xhttp = new XMLHttpRequest();
         xhttp.open("DELETE", this.uri+"/"+id, true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send(JSON.stringify(id));
-    
       }
-      loadDoc() {
+      }
+      loadDoc(ok, error) {
         var self = this;
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-           var emp = (JSON.parse(this.responseText));
-          }
+          if (this.readyState === 4 && this.status === 200) {
+            ok(JSON.parse(this.responseText));                
+        }
+        else if(this.status !== 200){
+            error(this.status);
+        }
         };
         xhttp.open("GET", this.uri, true);
         xhttp.send();
